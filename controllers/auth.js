@@ -1,5 +1,6 @@
 const Usuario=require('../models/usuario');
 const bcryptjs=require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
 
 const login=async(req, res )=>{
 
@@ -25,12 +26,15 @@ const login=async(req, res )=>{
             })
         }
 
-        //Generar Token
+        //Generar Token -JWT
 
-    
+        const token=await generarJWT(usuarioDB.id);
+
+
+
         res.json({
                 ok:true,
-                msg:'Todo bien'
+                token
             
         })
 
@@ -40,12 +44,8 @@ const login=async(req, res )=>{
         res.status(500).json({
             msg:'Hable con el administrador'
         })  
-    }
-
- 
-    
+    }    
 }
-
 
 module.exports={
     login
