@@ -22,7 +22,6 @@ dbConnection();
 //Lectura y parseo del body
 app.use(express.json());
 
-console.log("Hola mundo");
 
 
 //rutas
