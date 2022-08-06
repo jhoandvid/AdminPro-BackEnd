@@ -4,7 +4,9 @@ require('dotenv').config();
 const cors = require('cors')
 
 
-const {dbConnection}=require('./database/config')
+const {dbConnection}=require('./database/config');
+const usuarios = require('./routes/usuarios');
+const auth = require('./routes/auth');
 
 
 
@@ -12,17 +14,18 @@ const {dbConnection}=require('./database/config')
 const app=express();
 
 //cors
-app.use(cors())
+app.use(cors());
 
 //Base de datos 
 dbConnection();
 
+//Lectura y parseo del body
+app.use(express.json());
+
+
 //rutas
-app.get('/',(req,res)=>{
-    res.json({
-        mgs:'Respuesta correcta'
-    })
-})
+app.use('/api/usuarios', usuarios);
+app.use('/api/login', auth);
 
 
 app.listen(process.env.PORT, ()=>{
