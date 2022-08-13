@@ -17,7 +17,8 @@ const uploads = require('./routes/uploads');
 //Crear el servidor de express
 const app=express();
 
-
+//Capeta public
+app.use(express.static('public'))
 
 //cors
 app.use(cors());
@@ -36,12 +37,11 @@ app.use('/api/hospitales', hospitales);
 app.use('/api/medicos', medicos);
 app.use('/api/todo', busqueda);
 app.use('/api/upload',uploads );
-
 app.use('/api/usuarios', usuarios);
 
 
 app.listen(process.env.PORT, ()=>{
-    console.log('Servidor corriendo en el puerto ' +3000)
+    console.log('Servidor corriendo en el puerto ' + 3000)
 })
 
 
