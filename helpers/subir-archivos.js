@@ -16,16 +16,16 @@ const subirArchivo = (file, extensionValidas = ['png', 'jpg', 'jpeg', 'gif'], ca
             return reject(`La extensión ${extension} es incorrecta - ${extensionValidas}`)
         }
 
-        const nombreTemporal = uuidv4() + '.' + extension
+        const nombreArchivo = uuidv4() + '.' + extension
 
-        const uploadPath = path.join(__dirname, '../uploads/', carpeta, nombreTemporal);
+        const uploadPath = path.join(__dirname, '../uploads/', carpeta, nombreArchivo);
 
         imagen.mv(uploadPath, (err) => {
             if (err) {
                 reject(err)
             }
 
-            resolve(nombreTemporal);
+            resolve([uploadPath, nombreArchivo]);
         })
     })
 

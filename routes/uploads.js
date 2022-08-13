@@ -1,5 +1,5 @@
 const Router=require('express');
-const { fileUploads } = require('../controllers/uploads');
+const { fileUploads, retornaImagen } = require('../controllers/uploads');
 const { validarJwt } = require('../middlewares/validar-jwt');
 const expressFileUpload = require('express-fileupload');
 
@@ -11,6 +11,8 @@ router.use(expressFileUpload())
  
 
 router.put('/:tipo/:id', validarJwt, fileUploads)
+
+router.get('/:tipo/:foto', validarJwt, retornaImagen)
 
 
 module.exports=router
