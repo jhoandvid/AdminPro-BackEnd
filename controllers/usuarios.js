@@ -103,7 +103,6 @@ const actualizarUsuario=async(req, res)=>{
         //Actualizares
 
         campos.email=email;
-
         const usuarioActualizado=await Usuario.findByIdAndUpdate(uid, campos, {new:true});
         res.json({
             ok:true,

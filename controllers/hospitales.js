@@ -1,5 +1,7 @@
 
-const Hospital = require('../models/hospital')
+const { findById } = require('../models/hospital');
+const Hospital = require('../models/hospital');
+const usuario = require('../models/usuario');
 
 
 const getHospitales = async (req, res) => {
@@ -36,17 +38,82 @@ const crearHospital = async (req, res) => {
 }
 
 
-const editarHospital = (req, res) => {
+const editarHospital = async(req, res) => {
+
+  try {
+    const {nombre}=req.body;
+    const uid=req.uid;
+    const id=req.params.id;
+
+    const hospital=await Hospital.findById(id);
+
+    if(!hospital){
+        return res.status(404).josn({
+            ok:false,
+            msg:'El hospital no existe'
+        })
+    }
+
+
+    data={
+        nombre,
+        usuario:uid
+    }
+
+    const actHospital=await Hospital.findByIdAndUpdate(id, {...data}, {new:true});
+
     res.json({
-        ok: 'Todo bien'
+        actHospital
     })
+    
+
+  } catch (error) {
+    res.status(500).json({
+        ok:false,
+        msg:'A ocurrido un error hable con el administrador'
+    })
+  }
+
 }
 
 
-const eliminarHospital = (req, res) => {
+const eliminarHospital = async(req, res) => {
+
+    const id=req.params.id;
+
+
+    try {
+    const hospital=await Hospital.findById(id);
+
+    if(!hospital){
+       return res.status(404).json({
+            ok:false,
+            msg:'El hospital a eliminar no existe'
+        })
+    }
+
+
+
+    await Hospital.findByIdAndRemove(id);
+
+
     res.json({
-        ok: 'Todo bien'
+        ok:'true',
+        msg:'Hospital eliminado'
+        
     })
+
+
+
+    } catch (error) {  
+        res.status(500).json({
+            ok: 'A ocurrido un error hable con el administrador'
+        })
+    }
+
+
+
+
 }
 
 

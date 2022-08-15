@@ -19,10 +19,10 @@ router.get('/', [validarJwt],getHospitales);
 ], crearHospital)
 
 
-router.put('/:id', [], editarHospital)
+router.put('/:id', [validarJwt,check("nombre", "El nombre es obligatorio").not().isEmpty(), validarCampos], editarHospital)
 
 
-router.delete('/:id', eliminarHospital) 
+router.delete('/:id',[validarJwt], eliminarHospital) 
 
 
 

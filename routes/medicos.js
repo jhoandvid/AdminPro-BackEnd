@@ -18,8 +18,8 @@ router.post ('/',[validarJwt,   check('nombre', "El nombre del medico es Obligat
                                 check('hospital').custom(validarHospitalPorId),
                                    
 validarCampos], crearMedico)
-router.put ('/', actualizarMedico)
-router.delete ('/', eliminarMedico)
+router.put ('/:id',[validarJwt,check("nombre", "El nombre es obligatorio").not().isEmpty(), check('hospital', "El id no es un id valido").isMongoId(), validarCampos], actualizarMedico)
+router.delete ('/:id', eliminarMedico)
 
 
 
