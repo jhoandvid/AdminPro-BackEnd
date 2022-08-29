@@ -88,10 +88,12 @@ const actualizarUsuario=async(req, res)=>{
 
         
         const {password, google, email, ...campos}=req.body;
-        if(usuarioDB.email !==email){
+        if(usuarioDB.email ===email){
+
+            return true;
    
         }
-            const existeEmail=await Usuario.findOne({email});
+        const existeEmail=await Usuario.findOne({email});
             if(existeEmail){
                 return res.status(400).json({
                     ok:false,

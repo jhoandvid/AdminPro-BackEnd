@@ -12,7 +12,7 @@ router.use(expressFileUpload())
 
 router.put('/:tipo/:id', validarJwt, fileUploads)
 
-router.get('/:tipo/:foto', validarJwt, retornaImagen)
+router.get('/:tipo/:foto', retornaImagen)
 
 
 module.exports=router
