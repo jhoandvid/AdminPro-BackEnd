@@ -1,5 +1,5 @@
 
-const { response } = require('express');
+const { response, json } = require('express');
 const Usuario = require('../models/usuario');
 const bcrypt=require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
@@ -109,6 +109,11 @@ const actualizarUsuario=async(req, res)=>{
 
         if(!usuarioDB.google){
             campos.email=email;
+        }else if(usuarioDB.email!==email){
+            res.status(400).json({
+                ok:false,
+                msg:"Usuarios google no pueden actualizar correo"
+            })
         }
 
         const usuarioActualizado=await Usuario.findByIdAndUpdate(uid, campos, {new:true});
