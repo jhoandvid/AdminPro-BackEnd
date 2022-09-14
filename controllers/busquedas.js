@@ -34,8 +34,6 @@ const getDocumentosColeccion=async(req, res)=>{
 
     const {tabla}=req.params;
 
-
-    console.log(tabla)
     const {busqueda}=req.params;
 
     const regex=new RegExp(busqueda, 'i');

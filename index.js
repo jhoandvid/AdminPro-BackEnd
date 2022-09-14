@@ -40,6 +40,9 @@ app.use('/api/upload',uploads );
 app.use('/api/usuarios', usuarios);
 
 
+
+
+
 app.listen(process.env.PORT, ()=>{
     console.log('Servidor corriendo en el puerto ' + 3000)
 })

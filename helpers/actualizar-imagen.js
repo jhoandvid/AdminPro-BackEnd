@@ -81,10 +81,6 @@ const actualizarImagen=async(tipo, id, nombreArchivo)=>{
 
 
 
-            break;
-
-
-
     }
 
     

@@ -36,7 +36,7 @@ const getMedicos=async(req, res)=>{
             })
             
         } catch (error) {
-            console.log(error);
+            
             res.status(500).json({
                 ok:false,
                 msg:'No hemos recibido la petición comuniquese con el administrador'

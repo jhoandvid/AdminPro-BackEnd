@@ -42,7 +42,6 @@ const login=async(req, res )=>{
 
 
     }catch(err){
-        console.log(err);
         res.status(500).json({
             msg:'Hable con el administrador'
         })  
@@ -85,7 +84,6 @@ const googleSignIn=async (req, res=response)=>{
         })
     } catch (error) {
 
-        console.log(error);
         res.status(400).json({
             ok:false,
             msg: 'Token de google no es correcto'

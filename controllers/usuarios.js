@@ -10,7 +10,7 @@ const getUsuarios = async (req, res) => {
 
 
    const [total, usuarios]= await Promise.all([ Usuario.countDocuments(),
-    Usuario.find({}, 'nombre email role google img').skip(desde).limit(20)])
+    Usuario.find({}, 'nombre email role google img').skip(desde).limit(5)])
 
     res.json({
         ok: true,
@@ -57,7 +57,6 @@ const crearUsuario = async (req, res = response) => {
         })
 
     } catch (error) {
-        console.log(error);
 
         res.status(500).json({
             ok: false,
@@ -69,12 +68,48 @@ const crearUsuario = async (req, res = response) => {
 }
 
 
-const actualizarUsuario=async(req, res)=>{
+const actualizarRole=async(req, res)=>{
 
     const uid=req.params.id;
 
-        //TODO: Validar token y comprobar que sea correcto
+    const role=req.body.role;
+
+    try {
+        const usuario=await Usuario.findById(uid);
+
+        if(!usuario){
+            res.status(404).json({
+                ok:false,
+                msg:'El usuario no existe'
+            })
+        }
+
+        console.log(role)
+
+        const usuarioDB=await Usuario.findByIdAndUpdate(uid, {role}, {new:true})
+
+        res.json({
+            ok:true,
+            usuarioDB
     
+        })
+    } catch (error) {
+        res.status(500).json({
+            ok:false,
+            msg:'Consulte con el administrador'
+        })
+    }
+
+   
+
+
+
+
+}
+
+const actualizarUsuario=async(req, res)=>{
+
+    const uid=req.params.id;
 
     try {
         const usuarioDB=await Usuario.findById(uid);
@@ -123,7 +158,7 @@ const actualizarUsuario=async(req, res)=>{
         })
         
     } catch (error) {
-        console.log(error);
+
 
         res.status(500).json({
             msg:'Error inesperado'
@@ -161,7 +196,7 @@ const eliminarUsuario=async (req, res)=>{
 
 
     }catch(err){
-        console.log(err)
+    
 
         res.status(500).json({
             ok:false,
@@ -175,7 +210,8 @@ module.exports = {
     getUsuarios,
     crearUsuario,
     actualizarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    actualizarRole
 }
 
 
