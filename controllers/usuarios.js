@@ -3,6 +3,7 @@ const { response, json } = require('express');
 const Usuario = require('../models/usuario');
 const bcrypt=require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
+const { body } = require('express-validator');
 
 const getUsuarios = async (req, res) => {
 
@@ -84,8 +85,7 @@ const actualizarRole=async(req, res)=>{
             })
         }
 
-        console.log(role)
-
+    
         const usuarioDB=await Usuario.findByIdAndUpdate(uid, {role}, {new:true})
 
         res.json({
@@ -99,12 +99,6 @@ const actualizarRole=async(req, res)=>{
             msg:'Consulte con el administrador'
         })
     }
-
-   
-
-
-
-
 }
 
 const actualizarUsuario=async(req, res)=>{
