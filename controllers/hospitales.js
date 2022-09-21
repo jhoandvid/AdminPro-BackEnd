@@ -12,6 +12,7 @@ const getHospitales = async (req, res) => {
         await Hospital.find().populate('usuario', 'nombre img').skip(desde).limit(5) ])
 
     res.json({
+        ok:true,
         total,
         hospitales
     })
