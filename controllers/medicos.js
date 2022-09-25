@@ -1,13 +1,19 @@
-const { body } = require('express-validator');
+
 const Medico=require('../models/medico')
 const Hospital=require('../models/hospital');
-const { findByIdAndUpdate } = require('../models/hospital');
+
 
 
 const getMedicos=async(req, res)=>{
-    const medicos=await Medico.find().populate('usuario', 'nombre img').populate('hospital', 'nombre img')
 
+    const desde=Number(req.query.desde) || 0;
+
+
+    
+    const [ total, medicos]=await Promise.all([await Medico.countDocuments(), 
+    await Medico.find().populate('usuario', 'nombre img').populate('hospital', 'nombre img').skip(desde).limit(5)]);
     res.json({
+        total,
         medicos
 
     })
