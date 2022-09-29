@@ -4,21 +4,27 @@ const Hospital=require('../models/hospital');
 
 
 
-const getMedicos=async(req, res)=>{
+const getMedicosPaginacion=async(req, res)=>{
 
     const desde=Number(req.query.desde) || 0;
-
-
-    
     const [ total, medicos]=await Promise.all([await Medico.countDocuments(), 
     await Medico.find().populate('usuario', 'nombre img').populate('hospital', 'nombre img').skip(desde).limit(5)]);
     res.json({
         total,
         medicos
-
     })
 
 }
+
+const getMedicos=async(req, res)=>{
+    const medicos=await Medico.find();
+    res.json({
+        medicos
+    })
+
+}
+
+
 
     const crearMedico=async(req, res)=>{
 
@@ -127,10 +133,13 @@ const eliminarMedico=async(req, res)=>{
 
 }
 
+
+
 module.exports={
-    getMedicos,
+    getMedicosPaginacion,
     crearMedico,
     actualizarMedico,
-    eliminarMedico
+    eliminarMedico, 
+    getMedicos
     
 }
