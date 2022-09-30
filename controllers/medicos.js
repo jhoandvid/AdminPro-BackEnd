@@ -17,13 +17,23 @@ const getMedicosPaginacion=async(req, res)=>{
 }
 
 const getMedicos=async(req, res)=>{
-    const medicos=await Medico.find();
+    const medicos=await Medico.find().populate("hospital" ,'nombre img');
     res.json({
         medicos
     })
 
 }
 
+const getMedico=async(req, res)=>{
+
+    const id=req.params.id;
+
+    const medico=await Medico.findById(id);
+
+    res.json({
+        medico
+    })
+}
 
 
     const crearMedico=async(req, res)=>{
@@ -140,6 +150,7 @@ module.exports={
     crearMedico,
     actualizarMedico,
     eliminarMedico, 
-    getMedicos
+    getMedicos,
+    getMedico
     
 }
