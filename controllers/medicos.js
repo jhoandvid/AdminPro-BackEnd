@@ -28,11 +28,30 @@ const getMedico=async(req, res)=>{
 
     const id=req.params.id;
 
-    const medico=await Medico.findById(id);
+    try {
+    const medico=await Medico.findById(id).populate('usuario', 'nombre img').populate('hospital', "nombre img");
 
-    res.json({
+    if(!medico){
+
+        return res.status(404).json({
+            ok:false,
+            msg:'El medico no existe'
+        })
+        
+    }
+
+    return res.json({
         medico
     })
+ 
+        
+    } catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg:'Contacte al administrador'
+        })
+    }
+
 }
 
 
