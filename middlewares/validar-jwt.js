@@ -5,8 +5,11 @@ const validarJwt=(req, res, next)=>{
     //Leer el token
     const token =req.header('x-token');
 
+ 
+
     if(!token){
         return res.status(401).json({
+            token,
             ok:false,
             msg: 'No hay token en la petición'
         })
