@@ -120,7 +120,8 @@ const actualizarUsuario=async(req, res)=>{
         if(usuarioDB.email===email){
 
             return res.json({
-                ok:true
+                ok:true,
+                usuario:usuarioDB
             })
         
    
