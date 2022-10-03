@@ -3,6 +3,8 @@ const express=require('express');
 require('dotenv').config();
 const cors = require('cors')
 
+const path=require('path')
+
 
 const {dbConnection}=require('./database/config');
 const usuarios = require('./routes/usuarios');
@@ -40,7 +42,9 @@ app.use('/api/upload',uploads );
 app.use('/api/usuarios', usuarios);
 
 
-
+app.get('*', (req, res)=>{
+    res.sendFile( path.resolve(__dirname, 'public/index.html') )
+})
 
 
 app.listen(process.env.PORT, ()=>{

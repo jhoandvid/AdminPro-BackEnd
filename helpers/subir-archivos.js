@@ -1,6 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 const path = require('path')
 
+const cloudinary = require('cloudinary').v2
+cloudinary.config(process.env.CLOUDINARY_UR);
 
 const subirArchivo = (file, extensionValidas = ['png', 'jpg', 'jpeg', 'gif'], carpeta = "") => {
 
@@ -23,8 +25,8 @@ const subirArchivo = (file, extensionValidas = ['png', 'jpg', 'jpeg', 'gif'], ca
         const nombreArchivo = uuidv4() + '.' + extension
 
         const uploadPath = path.join(__dirname, '../uploads/', carpeta, nombreArchivo);
-    
 
+    
         imagen.mv(uploadPath, (err) => {
             if (err) {
                 reject(err)

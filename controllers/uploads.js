@@ -55,8 +55,7 @@ const fileUploads=async(req, res)=>{
         ok:true,
         msg:'Archivo subido correctamente',
         nombreArchivo,
-        uploadPath
-        
+        uploadPath, 
     })
 
   }catch(err){
@@ -78,7 +77,8 @@ const fileUploads=async(req, res)=>{
 
      res.json({
         ok:true,
-        msg:'fileUpload'
+        msg:'fileUpload', 
+       
     })
 }
 
