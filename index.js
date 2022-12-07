@@ -20,7 +20,7 @@ const uploads = require('./routes/uploads');
 const app=express();
 
 //Capeta public
-app.use(express.static('public'))
+//app.use(express.static('public'))
 
 //cors
 app.use(cors());
